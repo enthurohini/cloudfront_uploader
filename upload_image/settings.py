@@ -26,6 +26,7 @@ SECRET_KEY = '0c4-*acz)=j3hji!y*j9qql@2hn$cz4igun@iw#2a7cydis@5^'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+LOGIN_REDIRECT_URL = 'upload_file'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

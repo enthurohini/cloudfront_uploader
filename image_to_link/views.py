@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Document
 from .forms import UploadFileForm
 from django.core.exceptions import ImproperlyConfigured
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 import json
 import os
@@ -14,6 +16,16 @@ from boto.s3.key import Key
 import boto.s3.connection
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+def login(request):
+	username = request.POST['username']
+	password = request.POST['password']
+	user = authenticate(username=username, password=password)
+	if user is not None:
+		login(request, user)
+		return HttpResponseRedirect('/upload/')
+	else:
+		return HttpResponse("Invalid Credentials. Please refresh the page.")
 
 def get_secret(setting):
     file_path = BASE_DIR+"/image_to_link/secrets.json"
@@ -29,7 +41,7 @@ def get_secret(setting):
         error_message = "secrets.json not found."
         raise ImproperlyConfigured(error_message)
 
-
+@login_required(login_url='/')
 def upload_file(request):
     if request.method == 'POST':
     	form = UploadFileForm(request.POST, request.FILES)
@@ -76,6 +88,8 @@ def upload_file(request):
     		return render(request, 'image_to_link/upload.html', context)
     		#return HttpResponse(cloudfront_link)
     		
+    # else:
+    # 	return HttpResponseRedirect('/')
     else:
         form = UploadFileForm()
     return render(request, 'image_to_link/upload.html', {'form': form})
