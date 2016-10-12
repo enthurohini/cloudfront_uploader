@@ -1,0 +1,12 @@
+
+</br>
+</br>
+<form action={% url 'upload_file' %} method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.errors }}
+    {{ form.non_field_errors }}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>
+
+<h1>{{ cloudfront_link }}</h1>
