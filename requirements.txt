@@ -1,3 +1,4 @@
 boto==2.42.0
 Django==1.10.2
 gunicorn==19.6.0
+django-crispy-forms==1.6.1
