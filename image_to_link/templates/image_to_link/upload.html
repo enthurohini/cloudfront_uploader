@@ -1,12 +1,18 @@
-
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
 </br>
 </br>
+{% block content %}
+	
+<div class="container-fluid">
+<div class="col-md-6">
+<div class="col-sm-6">
 <form action={% url 'upload_file' %} method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.errors }}
     {{ form.non_field_errors }}
-    {{ form }}
-    <input type="submit" value="Submit" />
+    {{ form | crispy }}
+    <input class="btn btn-primary" type="submit" value="Submit" />
 </form>
 
 <h1>{{ cloudfront_link }}</h1>
@@ -14,4 +20,16 @@
 </br>
 </br>
 
-<a href={% url 'logout' %}> logout </a>
+
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="col-sm-6">
+<a class="btn btn-danger" href={% url 'logout' %}> logout </a>
+</div>
+</div>
+
+</div>
+
+{% endblock %}
