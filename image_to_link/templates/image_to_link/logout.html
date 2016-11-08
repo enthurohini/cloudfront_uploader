@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+<div class="container-fluid">
 <h2>You are successfully Logged out</h2>
 
 {% block title %}For Login
 <a href={% url 'login' %}> <b>LOGIN</b> </a>
 {% endblock %}
+
+</div>
