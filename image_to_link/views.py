@@ -80,7 +80,7 @@ def upload_file(request):
     			key.set_contents_from_file(f)
     		os.remove(filepath)
 
-    		cloudfront_link = "http://d3nfc7oea1f362.cloudfront.net/" + key_name
+    		cloudfront_link = "https://d3nfc7oea1f362.cloudfront.net/" + key_name
     		form = UploadFileForm()
     		context = {'cloudfront_link': cloudfront_link, 'form': form}
 
